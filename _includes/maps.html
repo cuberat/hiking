@@ -1,0 +1,14 @@
+{% if include.waze_link != nil %}
+<!-- see https://developers.google.com/waze/deeplinks/ -->
+<a href="https://waze.com/ul?{{ include.waze_link | escape }}&navigate=yes">Waze</a>,
+{% else %}
+<a href="https://waze.com/ul?q={{ include.addr | url_encode }}&amp;navigate=yes">Waze</a>,
+{% endif %}
+<!-- see https://developers.google.com/maps/documentation/urls/guide -->
+{%if include.google_place != nil %}
+<a href="https://www.google.com/maps/dir/?api=1&amp;destination={{ include.addr | url_encode }}&amp;destination_place_id={{ include.google_place | url-encode }}&amp;travelmode=driving&amp;dir_action=navigate">Google Maps</a>,
+{% else %}
+<a href="https://www.google.com/maps/dir/?api=1&amp;destination={{ include.addr | url_encode }}&amp;travelmode=driving&amp;dir_action=navigate">Google Maps</a>,
+{% endif %}
+<!-- see https://developer.apple.com/library/archive/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html -->
+<a href="http://maps.apple.com/?daddr={{ include.addr | url_encode }}&amp;dirflg=d">Apple Maps</a>
